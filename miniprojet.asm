@@ -31,6 +31,7 @@ afficheur1	ds.b	1			;variable pour l'afficheur 1(secondes)
 afficheur2	ds.b	1			;variable pour l'afficheur 2(secondes)
 afficheur3	ds.b	1			;variable pour l'afficheur 3(minutes)
 afficheur4	ds.b	1			;variable pour l'afficheur 4(minutes)
+
 etat		ds.b	1			;variable pour l'état
 chiffre		dc.b	$3F,$06,$5B,$4F,$66,$6D,$7D,$07,$7F,$6F,$6F,$6F,$6F,$6F,$6F,$6F
 
@@ -129,7 +130,7 @@ etat_decompte	movb	#DECOMPTE etat
 		addb	afficheur3
 		addb	afficheur4
 		cmpb	#0
-		beq	etat_end
+		beq	etat_final
 		dec    	afficheur1		;afficheur1 -= 1
 		ldab   	afficheur1
 		cmpb	#-1
@@ -167,7 +168,7 @@ etat_pause	movb	#PAUSE etat
 		ldy	#1567			;940ms = 1567 x 0.6ms
 		jsr	delayWithAfficher
 		lbra 	forever
-etat_end	movb	#FINAL etat
+etat_final	movb	#FINAL etat
 		ldy 	#833 			;sonner la 1ere fois (1000ms)
 		jsr	soundWithAfficherEnd
 		ldy	#5					;silence de 500ms

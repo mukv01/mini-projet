@@ -1,0 +1,124 @@
+Configuration des ports(entrées/sorties)
+Initialisation des variables
+
+WHILE le programme pas forcement interrompus
+DO
+	Lire la commande venant de boutons poussoirs
+	IF le bouton START appuyé
+	THEN
+		IF état courant est INITIALISATION
+		THEN
+			GO TO etat INITIALISATION
+		ENDIF état courant est INITIALISATION
+
+		IF état courant est DECALAGE
+		THEN
+			GO TO etat DECOMPTE
+		ENDIF état courant est DECALAGE
+
+		IF état courant est PAUSE
+		THEN
+			GO TO etat DECOMPTE
+		ENDIF état courant est PAUSE
+
+	ENDIF le bouton START appuyé
+
+	
+ 
+IF le bouton STOP appuyé
+	THEN
+		IF état courant est INITIALISATION
+		THEN
+			GO TO etat INITIALISATION
+		ENDIF état courant est INITIALISATION
+
+		IF état courant est DECALAGE
+		THEN
+			GO TO etat INITIALISATION
+		ENDIF état courant est DECALAGE
+
+		IF état courant est DECOMPTE
+		THEN
+			GO TO etat PAUSE
+		ENDIF état courant est DECOMPTE
+
+		IF état courant est PAUSE
+		THEN
+			GO TO etat INITIALISATION
+		ENDIF état courant est PAUSE
+
+	ENDIF le bouton STOP appuyé
+
+	IF le bouton NUMBER appuyé
+	THEN
+		IF état courant est INITIALISATION
+		THEN
+			GO TO etat DECALAGE
+		ENDIF état courant est INITIALISATION
+
+		IF état courant est DECALAGE
+		THEN
+			GO TO etat DECALAGE
+		ENDIF état courant est DECALAGE
+		
+		IF état courant est DECOMPTE
+		THEN
+			GO TO etat DECOMPTE
+		ENDIF état courant est DECOMPTE
+
+		IF état courant est PAUSE
+		THEN
+			GO TO etat PAUSE
+		ENDIF état courant est PAUSE
+
+	ENDIF le bouton NUMBER appuyé
+
+	IF aucun bouton appuyé
+	THEN
+		IF état courant est DECOMPTE
+		THEN
+			GO TO etat DECOMPTE
+		ENDIF état courant est DECOMPTE
+
+	ENDIF aucun bouton appuyé
+		
+
+	BEGIN etat INITIALISATION
+		changer l'état à INITIALISATION
+		Initialiser les variables d'affichage à 0
+	END etat INITIALISATION
+
+	BEGIN etat DECALAGE
+		changer l'état à DECALAGE
+		Lire le nombre sur les interrupteurs
+		Inserer le nouveau nombre à droite tout en décallant les autres à droite
+		Faire un son tout en affichant sur l'afficheur 7-segment
+		Attendre une seconde tout en affichant sur l'afficheur 7-segment
+	END etat DECALAGE
+
+	BEGIN etat DECOMPTE
+		changer l'état à DECOMPTE
+		IF les variables d'affichage sont à 0 
+		THEN
+			GO TO etat FINAL
+		ELSE
+			Décrimenter les minutes et les secondes au besoin
+			Faire un son
+			Attendre une seconde	
+		ENDIF les variables d'affichage sont à 0 
+	END etat DECOMPTE
+
+	BEGIN etat PAUSE
+		changer l'état à PAUSE
+		Faire un son tout en affichant sur l'afficheur 7-segment
+		Attendre une seconde tout en affichant sur l'afficheur 7-segment
+	END etat PAUSE
+
+	BEGIN etat FINAL
+		changer l'état à FINAL
+		Faire un son long tout en affichant END sur l'afficheur 7-segment
+		Attendre 500ms sans rien afficher
+		Faire un son long tout en affichant END sur l'afficheur 7-segment
+	END etat FINAL
+ENDO
+END WHILE le programme pas forcement interrompus DO
